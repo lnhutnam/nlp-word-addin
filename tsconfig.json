@@ -7,9 +7,9 @@
         "noEmitOnError": true,
         "outDir": "lib",
         "sourceMap": true,
-        "target": "es5",
+        "target": "es6",
         "lib": [
-            "es2015",
+            "es2018",
             "dom"
         ]
     },

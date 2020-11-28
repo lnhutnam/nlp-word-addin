@@ -3,7 +3,8 @@
  * See LICENSE in the project root for license information.
  */
 
-import { countWords, countPuncMarks } from '../utils/count';
+import { countPuncMarks } from '../utils/count';
+import { totalWordCount, differentWord, numberofParagraphs } from '../utils/english-analyze';
 
 /* global document, Office, Word */
 
@@ -21,8 +22,20 @@ export async function run() {
     let docBody = context.document.body;
     context.load(docBody, ['text', 'paragraphs']);
     return context.sync().then(() => {
-      
-      document.getElementById('word-count').innerText = countWords(docBody.paragraphs.items);
+      document.getElementById('total-word-count').innerText = totalWordCount(docBody.paragraphs.items);
+      document.getElementById('word-count-common').innerText = totalWordCount(docBody.paragraphs.items);
+      document.getElementById('different-word').innerText = differentWord(docBody.paragraphs.items);
+      document.getElementById('different-word-common').innerText = totalWordCount(docBody.paragraphs.items);
+      document.getElementById('number-of-paragraphs').innerText = numberofParagraphs(docBody.text);
+      document.getElementById('number-of-sentence').innerText = totalWordCount(docBody.paragraphs.items);
+      document.getElementById('word-persentence').innerText = totalWordCount(docBody.paragraphs.items);
+      document.getElementById('number-of-characters-all').innerText = totalWordCount(docBody.paragraphs.items);
+      document.getElementById('number-of-characters').innerText = totalWordCount(docBody.paragraphs.items);
+      document.getElementById('characters-per-word').innerText = totalWordCount(docBody.paragraphs.items);
+      document.getElementById('syllables').innerText = totalWordCount(docBody.paragraphs.items);
+      document.getElementById('syllables-per-word').innerText = totalWordCount(docBody.paragraphs.items);
+
+      document.getElementById('word-count').innerText = countPuncMarks(docBody.paragraphs.items);
       document.getElementById('punc-count').innerText = countPuncMarks(docBody.text);
 
       return context.sync();

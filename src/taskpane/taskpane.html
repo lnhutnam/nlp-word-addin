@@ -3,34 +3,68 @@
 
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contoso Task Pane Add-in</title>
 
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 
     <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
-    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"
+    />
 
     <!-- Template styles -->
     <link href="taskpane.css" rel="stylesheet" type="text/css" />
-</head>
 
-<body class="ms-font-m ms-welcome ms-Fabric">
+    <script src="../lib/d3"></script>
+    <script src="../lib/d3-cloud/d3.layout.cloud.js"></script>
+    <script src="../d3.cloud.simplified.js"></script>
+  </head>
+
+  <body class="ms-font-m ms-welcome ms-Fabric">
     <section id="sideload-msg" class="ms-welcome__main">
-        <h2 class="ms-font-xl">Please sideload your add-in to see app body.</h2>
+      <h2 class="ms-font-xl">Please sideload your add-in to see app body.</h2>
     </section>
     <main id="app-body" class="ms-welcome__main" style="display: none;">
-        <div><span>Words: </span><span id="word-count"></span></div>
-        <div><span>Punctuations: </span><span id="punc-count"></span></div>
-        <div><span>Keyword: </span><span id="keyword"></span></div>
-        <div>
-            <button role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">Analyze</button>
-        </div>
+      <div>
+        <button role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">Analyze</button>
+      </div>
+      <h2 class="ms-font-xl">Text Statistics</h2>
+      <div><span>Total Word Count: </span><span id="total-word-count"></span></div>
+      <div><span>Word Count (Excluding Common Words): </span><span id="word-count-common"></span></div>
+      <div><span>Number of Different Words: </span><span id="different-word"></span></div>
+      <div><span>Different Words (Excluding Common Words): </span><span id="different-word-common"></span></div>
+      <div><span>Number of Paragraphs: </span><span id="number-of-paragraphs"></span></div>
+      <div><span>Number of Sentences: </span><span id="number-of-sentence"></span></div>
+      <div><span>Words per Sentence: </span><span id="word-persentence"></span></div>
+      <div><span>Number of Characters (all): </span><span id="number-of-characters-all"></span></div>
+      <div><span>Number of Characters (a-z): </span><span id="number-of-characters"></span></div>
+      <div><span>Characters per Word: </span><span id="characters-per-word"></span></div>
+      <div><span>Syllables: </span><span id="syllables"></span></div>
+      <div><span>Syllables per Word: </span><span id="syllables-per-word"></span></div>
+      <div><span>Punctuations: </span><span id="punc-count"></span></div>
+      <div><span>Keyword: </span><span id="keyword"></span></div>
+      <h2 class="ms-font-xl">Readability</h2>
+      <div><span>Hard Words: </span><span id="total-word-count"></span></div>
+      <div><span>Long Words: </span><span id="total-word-count"></span></div>
+      <div><span>Lexical Density: </span><span id="total-word-count"></span></div>
+      <div><span>Lexical Density (without Stop Words): </span><span id="total-word-count"></span></div>
+      <div><span>Gunning Fog Index: </span><span id="total-word-count"></span></div>
+      <div><span>Coleman-Liau Grade: </span><span id="total-word-count"></span></div>
+      <div><span>Flesch-Kincaid Grade Level: </span><span id="total-word-count"></span></div>
+      <div><span>Flesch Reading Ease: </span><span id="total-word-count"></span></div>
+      <div><span>ARI (Automated Readability Index): </span><span id="total-word-count"></span></div>
+      <div><span>SMOG Grade: </span><span id="total-word-count"></span></div>
+      <div><span>LIX (Laesbarhedsindex): </span><span id="total-word-count"></span></div>
+      <h2 class="ms-font-xl">Word Length Breakdown</h2>
+
+      <h2 class="ms-font-xl">Word Frequency Cloud</h2>
+      <div id="wordcloud"></div>
     </main>
-</body>
+  </body>
 </html>

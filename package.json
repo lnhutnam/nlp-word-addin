@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "keyword-extractor": "0.0.19",
+    "lodash": "^4.17.20",
     "natural": "^2.1.5",
     "syllable": "^4.1.0"
   },
@@ -53,6 +54,7 @@
     "office-addin-lint": "^1.0.26",
     "office-addin-manifest": "1.5.7",
     "office-addin-prettier-config": "^1.0.12",
+    "raw-loader": "^4.0.2",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.2.2",
     "typescript": "^4.0.3",

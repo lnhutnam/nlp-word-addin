@@ -1,3 +1,9 @@
+import { loadDict } from '../lib/dictionary/loadDict';
+import Tokenizer from '../lib/tokenizer/tokenizer';
+const tokenizer = new Tokenizer();
+
+const VNDICT = loadDict();
+
 export function countWords(paragraphs) {
   let count = 0;
   for (const paragraph of paragraphs) {
@@ -8,4 +14,71 @@ export function countWords(paragraphs) {
   
 export function countPuncMarks(bodyText) {
   return bodyText.match(/[,."!?'”“]/g).length;
+}
+
+export function preprocess(paragraphs) {
+  let parTokens = [];
+  for (const paragraph of paragraphs) {
+    parTokens.push(tokenizer.tokenize(paragraph.text));
+  }
+  return parTokens;
+}
+
+export function getSentences(parTokens) {
+  let sentences = [];
+  for (let tokens of parTokens) {
+    const len = tokens.length;
+    let start = 0;
+    for (let i = 0; i < len; i++) {
+      if (tokens[i] === '.' || tokens[i] === '?' || tokens[i] === '!') {
+        sentences.push(tokens.slice(start, i + 1));
+        start = i + 1;
+      } else if (i === len - 1) {
+        sentences.push(tokens.slice(start, len));
+      }
+    }
+  }
+  return sentences;
+}
+
+function flagTokens(flags, start, end) {
+  for (let i = start; i < end; i++) {
+    flags[i] = 1;
+  }
+}
+
+function tokenUsed(flags, start, end) {
+  for (let i = start; i < end; i++) {
+    return flags[i] === 1;
+  }
+  return false;
+}
+
+const rgx_specials = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+// words per sentence
+const MAX_WORD_LEN = 5;
+export function getWords(sentToken) {
+  let words = [];
+  let len = sentToken.length;
+  let tokens = [...sentToken];
+  let flags = Array(len).fill(0);
+  let wLen = len < MAX_WORD_LEN ? len : MAX_WORD_LEN;
+  while (wLen !== 0) {
+    let i = 0;
+    while (i + wLen <= len) {
+      if (!tokenUsed(flags, i, i + wLen)) {
+        const curTokens = tokens.slice(i, i + wLen);
+        const curW = curTokens.join(' ').toLowerCase().trim();
+
+        if (VNDICT.indexOf(curW) !== -1 || (wLen === 1 && !rgx_specials.test(curW))) {
+          words.push(curW);
+          flagTokens(flags, i, i + wLen);
+        }
+      } 
+      i++;
+    }
+    wLen--;
+  }
+  return words;
 }

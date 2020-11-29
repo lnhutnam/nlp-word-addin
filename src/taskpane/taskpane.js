@@ -3,7 +3,7 @@
  * See LICENSE in the project root for license information.
  */
 
-import { preprocess, getSentences, countPuncMarks, getWords } from '../utils/lang-vn';
+import { preprocess, getSentences, countPuncMarks, getWords, charPerWord } from '../utils/lang-vn';
 import { totalWordCount, differentWord, numberofParagraphs, 
   numberofSentence, wordPerSentence, longWords, 
   wordFrequency, numberOfCharacterAll, numberOfCharacter, 
@@ -55,18 +55,21 @@ export async function run() {
         document.getElementById('characters-per-word').innerText = charactersPerWord(docBody.paragraphs.items);
         document.getElementById('syllables').innerText = syllables(docBody.paragraphs.items);
         document.getElementById('syllables-per-word').innerText = syllablesPerWord(docBody.paragraphs.items);
-        document.getElementById('keyword').innerText = keyWord(docBody.paragraphs.items);
+        // document.getElementById('keyword').innerText = keyWord(docBody.paragraphs.items);
         // document.getElementById('word-freq').innerText = wordFrequency(docBody.paragraphs.items);
 
       } else if (lang === '1') { // VN
         switchLang('vn');
-        document.getElementById('1').innerText = words.length.toString();
-        document.getElementById('2').innerText = sentTokens.length.toString();
-        document.getElementById('3').innerText = paragraphs.length.toString();
-        document.getElementById('4').innerText = countPuncMarks(docBody.text).toString();
-        document.getElementById('5').innerText = 0;
-        document.getElementById('6').innerText = 0;
-        document.getElementById('7').innerText = 0;
+        const wordsCount = words.length;
+        const sentsCount = sentTokens.length;
+        const parsCount = paragraphs.length;
+        document.getElementById('1').innerText = wordsCount;
+        document.getElementById('2').innerText = sentsCount;
+        document.getElementById('3').innerText = parsCount;
+        document.getElementById('4').innerText = countPuncMarks(docBody.text);
+        document.getElementById('5').innerText = sentsCount / parsCount;
+        document.getElementById('6').innerText = wordsCount / sentsCount;
+        document.getElementById('7').innerText = charPerWord(words);
       }
       
       return context.sync();

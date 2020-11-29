@@ -32,7 +32,8 @@ export function getSentences(parTokens) {
 
 // puncs num
 export function countPuncMarks(bodyText) {
-  return bodyText.match(/[,."!?'”“]/g).length;
+  const match = bodyText.match(/[,."!?'”“]/g);
+  return match ? match.length : 0;
 }
 
 // avg sents / para
@@ -79,6 +80,14 @@ export function getWords(sentToken) {
     wLen--;
   }
   return words;
+}
+
+export function charPerWord(words) {
+  let count = 0;
+  for (const w of words) {
+    count += w.length;
+  }
+  return count / words.length;
 }
 
 // TODO:

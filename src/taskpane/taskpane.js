@@ -3,8 +3,7 @@
  * See LICENSE in the project root for license information.
  */
 
-import { countPuncMarks } from '../utils/count';
-import { totalWordCount, differentWord, numberofParagraphs } from '../utils/english-analyze';
+import { preprocess, getSentences, countPuncMarks, getWords } from '../utils/lang-vn';
 
 /* global document, Office, Word */
 
@@ -16,28 +15,41 @@ Office.onReady(info => {
   }
 });
 
+function switchLang(lang) {
+  document.getElementById(lang).removeAttribute('hidden');
+  document.getElementById(lang === 'en' ? 'vn' : 'en').setAttribute('hidden', 'true');
+}
+
 
 export async function run() {
   return Word.run(async context => {
-    let docBody = context.document.body;
+    const docBody = context.document.body;
     context.load(docBody, ['text', 'paragraphs']);
+
     return context.sync().then(() => {
-      document.getElementById('total-word-count').innerText = totalWordCount(docBody.paragraphs.items);
-      document.getElementById('word-count-common').innerText = totalWordCount(docBody.paragraphs.items);
-      document.getElementById('different-word').innerText = differentWord(docBody.paragraphs.items);
-      document.getElementById('different-word-common').innerText = totalWordCount(docBody.paragraphs.items);
-      document.getElementById('number-of-paragraphs').innerText = numberofParagraphs(docBody.text);
-      document.getElementById('number-of-sentence').innerText = totalWordCount(docBody.paragraphs.items);
-      document.getElementById('word-persentence').innerText = totalWordCount(docBody.paragraphs.items);
-      document.getElementById('number-of-characters-all').innerText = totalWordCount(docBody.paragraphs.items);
-      document.getElementById('number-of-characters').innerText = totalWordCount(docBody.paragraphs.items);
-      document.getElementById('characters-per-word').innerText = totalWordCount(docBody.paragraphs.items);
-      document.getElementById('syllables').innerText = totalWordCount(docBody.paragraphs.items);
-      document.getElementById('syllables-per-word').innerText = totalWordCount(docBody.paragraphs.items);
+      const paragraphs = docBody.paragraphs.items;
+      const parTokens = preprocess(paragraphs);
+      const sentTokens = getSentences(parTokens);
+      let words = [];
+      for (const token of sentTokens) {
+        words.push(...getWords(token));
+      }
+      const lang = document.getElementById('lang-select').value;
+      
+      if (lang === '0') { // EN
+        switchLang('en');
 
-      document.getElementById('word-count').innerText = countPuncMarks(docBody.paragraphs.items);
-      document.getElementById('punc-count').innerText = countPuncMarks(docBody.text);
-
+      } else if (lang === '1') { // VN
+        switchLang('vn');
+        document.getElementById('1').innerText = words.length.toString();
+        document.getElementById('2').innerText = sentTokens.length.toString();
+        document.getElementById('3').innerText = paragraphs.length.toString();
+        document.getElementById('4').innerText = countPuncMarks(docBody.text).toString();
+        document.getElementById('5').innerText = 0;
+        document.getElementById('6').innerText = 0;
+        document.getElementById('7').innerText = 0;
+      }
+      
       return context.sync();
     });
   });

@@ -27,6 +27,7 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "lodash": "^4.17.20",
     "natural": "^2.1.5",
     "node-nlp": "^4.16.0"
   },

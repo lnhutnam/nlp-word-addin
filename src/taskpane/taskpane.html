@@ -20,10 +20,6 @@
 
     <!-- Template styles -->
     <link href="taskpane.css" rel="stylesheet" type="text/css" />
-
-    <script src="../lib/d3"></script>
-    <script src="../lib/d3-cloud/d3.layout.cloud.js"></script>
-    <script src="../d3.cloud.simplified.js"></script>
   </head>
 
   <body class="ms-font-m ms-welcome ms-Fabric">
@@ -48,23 +44,9 @@
       <div><span>Syllables: </span><span id="syllables"></span></div>
       <div><span>Syllables per Word: </span><span id="syllables-per-word"></span></div>
       <div><span>Punctuations: </span><span id="punc-count"></span></div>
-      <div><span>Keyword: </span><span id="keyword"></span></div>
-      <h2 class="ms-font-xl">Readability</h2>
-      <div><span>Hard Words: </span><span id="total-word-count"></span></div>
-      <div><span>Long Words: </span><span id="total-word-count"></span></div>
-      <div><span>Lexical Density: </span><span id="total-word-count"></span></div>
-      <div><span>Lexical Density (without Stop Words): </span><span id="total-word-count"></span></div>
-      <div><span>Gunning Fog Index: </span><span id="total-word-count"></span></div>
-      <div><span>Coleman-Liau Grade: </span><span id="total-word-count"></span></div>
-      <div><span>Flesch-Kincaid Grade Level: </span><span id="total-word-count"></span></div>
-      <div><span>Flesch Reading Ease: </span><span id="total-word-count"></span></div>
-      <div><span>ARI (Automated Readability Index): </span><span id="total-word-count"></span></div>
-      <div><span>SMOG Grade: </span><span id="total-word-count"></span></div>
-      <div><span>LIX (Laesbarhedsindex): </span><span id="total-word-count"></span></div>
-      <h2 class="ms-font-xl">Word Length Breakdown</h2>
-
-      <h2 class="ms-font-xl">Word Frequency Cloud</h2>
-      <div id="wordcloud"></div>
+      <div><span>Keyword: </span><span id="keyword"></span></div>     
+      <h2 class="ms-font-xl">Word Frequency</h2>
+      <div><span></span><span id="word-freq"></span></div>
     </main>
   </body>
 </html>

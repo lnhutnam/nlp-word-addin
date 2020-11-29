@@ -32,39 +32,31 @@
     </section>
     <main id="app-body" class="ms-welcome__main" style="display: none;">
       <div>
+        <div class="custom-select" style="width:200px;">
+          <select id='lang-select'>
+            <option value="0">English</option>
+            <option value="1">Vietnamese</option>
+          </select>
+        </div>
+
         <button role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">Analyze</button>
       </div>
-      <h2 class="ms-font-xl">Text Statistics</h2>
-      <div><span>Total Word Count: </span><span id="total-word-count"></span></div>
-      <div><span>Word Count (Excluding Common Words): </span><span id="word-count-common"></span></div>
-      <div><span>Number of Different Words: </span><span id="different-word"></span></div>
-      <div><span>Different Words (Excluding Common Words): </span><span id="different-word-common"></span></div>
-      <div><span>Number of Paragraphs: </span><span id="number-of-paragraphs"></span></div>
-      <div><span>Number of Sentences: </span><span id="number-of-sentence"></span></div>
-      <div><span>Words per Sentence: </span><span id="word-persentence"></span></div>
-      <div><span>Number of Characters (all): </span><span id="number-of-characters-all"></span></div>
-      <div><span>Number of Characters (a-z): </span><span id="number-of-characters"></span></div>
-      <div><span>Characters per Word: </span><span id="characters-per-word"></span></div>
-      <div><span>Syllables: </span><span id="syllables"></span></div>
-      <div><span>Syllables per Word: </span><span id="syllables-per-word"></span></div>
-      <div><span>Punctuations: </span><span id="punc-count"></span></div>
-      <div><span>Keyword: </span><span id="keyword"></span></div>
-      <h2 class="ms-font-xl">Readability</h2>
-      <div><span>Hard Words: </span><span id="total-word-count"></span></div>
-      <div><span>Long Words: </span><span id="total-word-count"></span></div>
-      <div><span>Lexical Density: </span><span id="total-word-count"></span></div>
-      <div><span>Lexical Density (without Stop Words): </span><span id="total-word-count"></span></div>
-      <div><span>Gunning Fog Index: </span><span id="total-word-count"></span></div>
-      <div><span>Coleman-Liau Grade: </span><span id="total-word-count"></span></div>
-      <div><span>Flesch-Kincaid Grade Level: </span><span id="total-word-count"></span></div>
-      <div><span>Flesch Reading Ease: </span><span id="total-word-count"></span></div>
-      <div><span>ARI (Automated Readability Index): </span><span id="total-word-count"></span></div>
-      <div><span>SMOG Grade: </span><span id="total-word-count"></span></div>
-      <div><span>LIX (Laesbarhedsindex): </span><span id="total-word-count"></span></div>
-      <h2 class="ms-font-xl">Word Length Breakdown</h2>
+      </br>
 
-      <h2 class="ms-font-xl">Word Frequency Cloud</h2>
-      <div id="wordcloud"></div>
+      <table id='en' class="tftable" border="1" hidden>
+      
+      </table>
+
+      <table id='vn' class="tftable" border="1" hidden>
+      <tr><th>Statistics</th><th>Lang: VN</span></th></tr>
+      <tr><td>Words</td><td id='1'></td></tr>
+      <tr><td>Sentences</td><td id='2'></td></tr>
+      <tr><td>Paragraphs</td><td id='3'></td></tr>
+      <tr><td>Punctuations</td><td id='4'></td></tr>
+      <tr><td>Sentence per paragraph</td><td id='5'></td></tr>
+      <tr><td>Words per sentence</td><td id='6'></td></tr>
+      <tr><td>Chars per word</td><td id='7'></td></tr>
+      </table>
     </main>
   </body>
 </html>

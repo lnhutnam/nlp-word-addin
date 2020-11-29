@@ -1,20 +1,9 @@
 import { loadDict } from '../lib/dictionary/loadDict';
-import Tokenizer from '../lib/tokenizer/tokenizer';
-const tokenizer = new Tokenizer();
 
 const VNDICT = loadDict();
 
-export function countWords(paragraphs) {
-  let count = 0;
-  for (const paragraph of paragraphs) {
-    count += paragraph.text.split(' ').length;
-  }
-  return count;
-}
-  
-export function countPuncMarks(bodyText) {
-  return bodyText.match(/[,."!?'”“]/g).length;
-}
+import Tokenizer from '../lib/tokenizer/tokenizer';
+const tokenizer = new Tokenizer();
 
 export function preprocess(paragraphs) {
   let parTokens = [];
@@ -40,6 +29,15 @@ export function getSentences(parTokens) {
   }
   return sentences;
 }
+
+// puncs num
+export function countPuncMarks(bodyText) {
+  return bodyText.match(/[,."!?'”“]/g).length;
+}
+
+// avg sents / para
+// avg words / sent
+// avg chars / word
 
 function flagTokens(flags, start, end) {
   for (let i = start; i < end; i++) {
@@ -82,3 +80,8 @@ export function getWords(sentToken) {
   }
   return words;
 }
+
+// TODO:
+// correct words
+// errors
+// total words

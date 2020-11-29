@@ -44,6 +44,10 @@ module.exports = async (env, options) => {
           options: {
             name: '[path][name].[ext]',          
           }
+        },
+        {
+          test: /\.txt$/i,
+          loader: 'raw-loader'
         }
       ]
     },

@@ -4,6 +4,11 @@
  */
 
 import { preprocess, getSentences, countPuncMarks, getWords } from '../utils/lang-vn';
+import { totalWordCount, differentWord, numberofParagraphs, 
+  numberofSentence, wordPerSentence, longWords, 
+  wordFrequency, numberOfCharacterAll, numberOfCharacter, 
+  charactersPerWord, keyWord, syllables,
+  syllablesPerWord, differentWordCommon, totalWordCountWithoutCommon} from '../utils/english-analyze';
 
 /* global document, Office, Word */
 
@@ -38,6 +43,20 @@ export async function run() {
       
       if (lang === '0') { // EN
         switchLang('en');
+        document.getElementById('total-word-count').innerText = totalWordCount(docBody.paragraphs.items);
+        document.getElementById('word-count-common').innerText = totalWordCountWithoutCommon(docBody.paragraphs.items);
+        document.getElementById('different-word').innerText = differentWord(docBody.paragraphs.items);
+        document.getElementById('different-word-common').innerText = differentWordCommon(docBody.paragraphs.items);
+        document.getElementById('number-of-paragraphs').innerText = numberofParagraphs(docBody.paragraphs.items);
+        document.getElementById('number-of-sentence').innerText = numberofSentence(docBody.paragraphs.items);
+        document.getElementById('word-persentence').innerText = wordPerSentence(docBody.paragraphs.items);
+        document.getElementById('number-of-characters-all').innerText = numberOfCharacterAll(docBody.paragraphs.items);
+        document.getElementById('number-of-characters').innerText = numberOfCharacter(docBody.paragraphs.items);
+        document.getElementById('characters-per-word').innerText = charactersPerWord(docBody.paragraphs.items);
+        document.getElementById('syllables').innerText = syllables(docBody.paragraphs.items);
+        document.getElementById('syllables-per-word').innerText = syllablesPerWord(docBody.paragraphs.items);
+        document.getElementById('keyword').innerText = keyWord(docBody.paragraphs.items);
+        // document.getElementById('word-freq').innerText = wordFrequency(docBody.paragraphs.items);
 
       } else if (lang === '1') { // VN
         switchLang('vn');

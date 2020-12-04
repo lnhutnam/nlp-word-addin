@@ -3,7 +3,7 @@
  * See LICENSE in the project root for license information.
  */
 
-import { preprocess, getSentences, countPuncMarks, getWords, charPerWord } from '../utils/lang-vn';
+import { preprocess, getSentences, countPuncMarks, getWords, wordAnalyze } from '../utils/lang-vn';
 import { totalWordCount, differentWord, numberofParagraphs, 
   numberofSentence, wordPerSentence, longWords, 
   wordFrequency, numberOfCharacterAll, numberOfCharacter, 
@@ -25,7 +25,6 @@ function switchLang(lang) {
   document.getElementById(lang === 'en' ? 'vn' : 'en').setAttribute('hidden', 'true');
 }
 
-
 export async function run() {
   return Word.run(async context => {
     const docBody = context.document.body;
@@ -39,6 +38,7 @@ export async function run() {
       for (const token of sentTokens) {
         words.push(...getWords(token));
       }
+      const { charsCount, syllablesCount } = wordAnalyze(words);
       const lang = document.getElementById('lang-select').value;
       
       if (lang === '0') { // EN
@@ -63,13 +63,16 @@ export async function run() {
         const wordsCount = words.length;
         const sentsCount = sentTokens.length;
         const parsCount = paragraphs.length;
+        document.getElementById('0').innerText = charsCount;
         document.getElementById('1').innerText = wordsCount;
         document.getElementById('2').innerText = sentsCount;
         document.getElementById('3').innerText = parsCount;
         document.getElementById('4').innerText = countPuncMarks(docBody.text);
         document.getElementById('5').innerText = sentsCount / parsCount;
         document.getElementById('6').innerText = wordsCount / sentsCount;
-        document.getElementById('7').innerText = charPerWord(words);
+        document.getElementById('7').innerText = charsCount / wordsCount;
+        document.getElementById('8').innerText = syllablesCount;
+        document.getElementById('9').innerText = syllablesCount / wordsCount;
       }
       
       return context.sync();

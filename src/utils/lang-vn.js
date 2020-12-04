@@ -54,7 +54,8 @@ function tokenUsed(flags, start, end) {
 }
 
 const rgx_specials = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-
+const rgx_space = /\s+/g;
+const rgx_spacedash = /[-\s+]/g
 // words per sentence
 const MAX_WORD_LEN = 5;
 export function getWords(sentToken) {
@@ -82,15 +83,14 @@ export function getWords(sentToken) {
   return words;
 }
 
-export function charPerWord(words) {
-  let count = 0;
+export function wordAnalyze(words) {
+  let charsCount = 0;
+  let syllablesCount = 0;
   for (const w of words) {
-    count += w.length;
+    const matches = w.match(rgx_spacedash);
+    syllablesCount += matches ? matches.length + 1 : 1;
+    const t_w = w.replace(rgx_space, '');
+    charsCount += t_w.length;
   }
-  return count / words.length;
+  return { charsCount, syllablesCount };
 }
-
-// TODO:
-// correct words
-// errors
-// total words

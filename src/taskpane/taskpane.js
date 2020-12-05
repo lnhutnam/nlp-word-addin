@@ -3,26 +3,45 @@
  * See LICENSE in the project root for license information.
  */
 
-import { preprocess, getSentences, countPuncMarks, getWords, wordAnalyze } from '../utils/lang-vn';
+
 import { totalWordCount, differentWord, numberofParagraphs, 
   numberofSentence, wordPerSentence, longWords, 
   wordFrequency, numberOfCharacterAll, numberOfCharacter, 
   charactersPerWord, keyWord, syllables,
   syllablesPerWord, differentWordCommon, totalWordCountWithoutCommon} from '../utils/english-analyze';
+import Worker from 'worker-loader!../worker/worker'
 
 /* global document, Office, Word */
-
+let worker;
 Office.onReady(info => {
   if (info.host === Office.HostType.Word) {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
+    worker = new Worker();
   }
 });
 
 function switchLang(lang) {
   document.getElementById(lang).removeAttribute('hidden');
   document.getElementById(lang === 'en' ? 'vn' : 'en').setAttribute('hidden', 'true');
+}
+
+function runWorker(data, dom) {
+  worker.postMessage(JSON.stringify(data));
+  worker.onmessage = e => {
+    const { charsCount, syllablesCount, puncMarksCount, wordsCount, sentsCount, parsCount } = e.data;
+    dom.getElementById('0').innerText = charsCount;
+    dom.getElementById('1').innerText = wordsCount;
+    dom.getElementById('2').innerText = sentsCount;
+    dom.getElementById('3').innerText = parsCount;
+    dom.getElementById('4').innerText = puncMarksCount;
+    dom.getElementById('5').innerText = sentsCount / parsCount;
+    dom.getElementById('6').innerText = wordsCount / sentsCount;
+    dom.getElementById('7').innerText = charsCount / wordsCount;
+    dom.getElementById('8').innerText = syllablesCount;
+    dom.getElementById('9').innerText = syllablesCount / wordsCount;
+  }
 }
 
 export async function run() {
@@ -32,15 +51,10 @@ export async function run() {
 
     return context.sync().then(() => {
       const paragraphs = docBody.paragraphs.items;
-      const parTokens = preprocess(paragraphs);
-      const sentTokens = getSentences(parTokens);
-      let words = [];
-      for (const token of sentTokens) {
-        words.push(...getWords(token));
-      }
-      const { charsCount, syllablesCount } = wordAnalyze(words);
+      const text = docBody.text;
+      docBody.untrack();
+
       const lang = document.getElementById('lang-select').value;
-      
       if (lang === '0') { // EN
         switchLang('en');
         document.getElementById('total-word-count').innerText = totalWordCount(docBody.paragraphs.items);
@@ -60,21 +74,9 @@ export async function run() {
 
       } else if (lang === '1') { // VN
         switchLang('vn');
-        const wordsCount = words.length;
-        const sentsCount = sentTokens.length;
-        const parsCount = paragraphs.length;
-        document.getElementById('0').innerText = charsCount;
-        document.getElementById('1').innerText = wordsCount;
-        document.getElementById('2').innerText = sentsCount;
-        document.getElementById('3').innerText = parsCount;
-        document.getElementById('4').innerText = countPuncMarks(docBody.text);
-        document.getElementById('5').innerText = sentsCount / parsCount;
-        document.getElementById('6').innerText = wordsCount / sentsCount;
-        document.getElementById('7').innerText = charsCount / wordsCount;
-        document.getElementById('8').innerText = syllablesCount;
-        document.getElementById('9').innerText = syllablesCount / wordsCount;
+        runWorker({paragraphs, text}, document);
       }
-      
+
       return context.sync();
     });
   });

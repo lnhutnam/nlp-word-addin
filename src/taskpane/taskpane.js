@@ -30,17 +30,17 @@ function switchLang(lang) {
 function runWorker(data, dom) {
   worker.postMessage(JSON.stringify(data));
   worker.onmessage = e => {
-    const { charsCount, syllablesCount, puncMarksCount, wordsCount, sentsCount, parsCount } = e.data;
-    dom.getElementById('0').innerText = charsCount;
-    dom.getElementById('1').innerText = wordsCount;
-    dom.getElementById('2').innerText = sentsCount;
-    dom.getElementById('3').innerText = parsCount;
-    dom.getElementById('4').innerText = puncMarksCount;
-    dom.getElementById('5').innerText = sentsCount / parsCount;
-    dom.getElementById('6').innerText = wordsCount / sentsCount;
-    dom.getElementById('7').innerText = charsCount / wordsCount;
-    dom.getElementById('8').innerText = syllablesCount;
-    dom.getElementById('9').innerText = syllablesCount / wordsCount;
+    const { resCharsCount, resSyllablesCount, resPuncMarksCount, resWordsCount, resSentsCount, resParsCount } = e.data;
+    dom.getElementById('0').innerText = resCharsCount;
+    dom.getElementById('1').innerText = resWordsCount;
+    dom.getElementById('2').innerText = resSentsCount;
+    dom.getElementById('3').innerText = resParsCount;
+    dom.getElementById('4').innerText = resPuncMarksCount;
+    dom.getElementById('5').innerText = resSentsCount / resParsCount;
+    dom.getElementById('6').innerText = resWordsCount / resSentsCount;
+    dom.getElementById('7').innerText = resCharsCount / resWordsCount;
+    dom.getElementById('8').innerText = resSyllablesCount;
+    dom.getElementById('9').innerText = resSyllablesCount / resWordsCount;
   }
 }
 

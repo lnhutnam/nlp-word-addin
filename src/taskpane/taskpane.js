@@ -57,20 +57,20 @@ export async function run() {
       const lang = document.getElementById('lang-select').value;
       if (lang === '0') { // EN
         switchLang('en');
-        document.getElementById('total-word-count').innerText = totalWordCount(docBody.paragraphs.items);
-        document.getElementById('word-count-common').innerText = totalWordCountWithoutCommon(docBody.paragraphs.items);
-        document.getElementById('different-word').innerText = differentWord(docBody.paragraphs.items);
-        document.getElementById('different-word-common').innerText = differentWordCommon(docBody.paragraphs.items);
-        document.getElementById('number-of-paragraphs').innerText = numberofParagraphs(docBody.paragraphs.items);
-        document.getElementById('number-of-sentence').innerText = numberofSentence(docBody.paragraphs.items);
-        document.getElementById('word-persentence').innerText = wordPerSentence(docBody.paragraphs.items);
-        document.getElementById('number-of-characters-all').innerText = numberOfCharacterAll(docBody.paragraphs.items);
-        document.getElementById('number-of-characters').innerText = numberOfCharacter(docBody.paragraphs.items);
-        document.getElementById('characters-per-word').innerText = charactersPerWord(docBody.paragraphs.items);
-        document.getElementById('syllables').innerText = syllables(docBody.paragraphs.items);
-        document.getElementById('syllables-per-word').innerText = syllablesPerWord(docBody.paragraphs.items);
-        // document.getElementById('keyword').innerText = keyWord(docBody.paragraphs.items);
-        // document.getElementById('word-freq').innerText = wordFrequency(docBody.paragraphs.items);
+        document.getElementById('total-word-count').innerText = totalWordCount(paragraphs);
+        document.getElementById('word-count-common').innerText = totalWordCountWithoutCommon(paragraphs);
+        document.getElementById('different-word').innerText = differentWord(paragraphs);
+        document.getElementById('different-word-common').innerText = differentWordCommon(paragraphs);
+        document.getElementById('number-of-paragraphs').innerText = numberofParagraphs(paragraphs);
+        document.getElementById('number-of-sentence').innerText = numberofSentence(paragraphs);
+        document.getElementById('word-persentence').innerText = wordPerSentence(paragraphs);
+        document.getElementById('number-of-characters-all').innerText = numberOfCharacterAll(paragraphs);
+        document.getElementById('number-of-characters').innerText = numberOfCharacter(paragraphs);
+        document.getElementById('characters-per-word').innerText = charactersPerWord(paragraphs);
+        document.getElementById('syllables').innerText = syllables(paragraphs);
+        document.getElementById('syllables-per-word').innerText = syllablesPerWord(paragraphs);
+        // document.getElementById('keyword').innerText = keyWord(paragraphs);
+        // document.getElementById('word-freq').innerText = wordFrequency(paragraphs);
 
       } else if (lang === '1') { // VN
         switchLang('vn');

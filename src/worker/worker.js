@@ -22,8 +22,8 @@ self.addEventListener('message', e => {
   let resSentsCount = 0;
   let resPuncMarksCount = countPuncMarks(text);
   let resParsCount = paragraphs.length;
-  for (let i = 0; i < resParsCount; i += 4) {
-    const {charsCount, syllablesCount, wordsCount, sentsCount} = analyze(paragraphs.slice(i, i + 4));
+  for (let i = 0; i < resParsCount; i += 10) {
+    const {charsCount, syllablesCount, wordsCount, sentsCount} = analyze(paragraphs.slice(i, i + 10));
     resCharsCount += charsCount;
     resSyllablesCount += syllablesCount;
     resWordsCount += wordsCount;

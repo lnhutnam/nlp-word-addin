@@ -28,12 +28,11 @@ export function totalWordCount(paragraphs) {
 export function totalPuncMarks(paragraphs) {
     let count = 0;
     for (const paragraph of paragraphs) {
-        let words = nlp.string.tokenize(paragraph.text);
-        for (let word of words){
-            if (word.tag === 'punctuation'){
-                count = count + 1;
+        nlp.string.tokenize(paragraph.text, true).forEach(element => {
+            if (element.tag === 'punctuation') {
+                count += 1;
             }
-        }
+        });
     }
     return count;
 }
@@ -54,7 +53,7 @@ export function differentWord(paragraphs) {
     var paraSet = new Set();
     for (const paragraph of paragraphs) {
         nlp.string.tokenize0(paragraph.text).forEach(element => {
-            paraSet.add(element.value);
+            paraSet.add(element);
         });
     }
     return paraSet.size;
@@ -64,8 +63,8 @@ export function differentWordCommon(paragraphs) {
     var paraSet = new Set();
     for (const paragraph of paragraphs) {
         nlp.string.tokenize0(paragraph.text).forEach(element => {
-            if (!commonWord.engCommonWord.includes(element.value)) {
-                paraSet.add(element.value);
+            if (!commonWord.engCommonWord.includes(element)) {
+                paraSet.add(element);
             }
         });
     }
@@ -155,10 +154,9 @@ export function hardWords(paragraphs) {
 }
 
 export function longWords(paragraphs) {
-    let tokenizer = new natural.WordTokenizer();
     let longWordSet = new Set();
     for (const paragraph of paragraphs) {
-        tokenizer.tokenize(paragraph.text).forEach(element => {
+        nlp.string.tokenize0(paragraph.text).forEach(element => {
             if (element.length > 6) {
                 longWordSet.add(element);
             }

@@ -8,8 +8,8 @@ import { totalWordCount, differentWord, numberofParagraphs,
   numberofSentence, wordPerSentence, longWords, 
   wordFrequency, numberOfCharacterAll, numberOfCharacter, 
   charactersPerWord, keyWord, syllables,
-  syllablesPerWord, differentWordCommon, totalWordCountWithoutCommon} from '../utils/english-analyze';
-import Worker from 'worker-loader!../worker/worker'
+  syllablesPerWord, differentWordCommon, totalWordCountWithoutCommon, totalPuncMarks} from '../utils/english-analyze';
+import Worker from 'worker-loader!../worker/worker';
 
 /* global document, Office, Word */
 let worker;
@@ -41,7 +41,7 @@ function runWorker(data, dom) {
     dom.getElementById('7').innerText = resCharsCount / resWordsCount;
     dom.getElementById('8').innerText = resSyllablesCount;
     dom.getElementById('9').innerText = resSyllablesCount / resWordsCount;
-  }
+  };
 }
 
 export async function run() {
@@ -69,7 +69,7 @@ export async function run() {
         document.getElementById('characters-per-word').innerText = charactersPerWord(paragraphs);
         document.getElementById('syllables').innerText = syllables(paragraphs);
         document.getElementById('syllables-per-word').innerText = syllablesPerWord(paragraphs);
-        // document.getElementById('keyword').innerText = keyWord(paragraphs);
+        document.getElementById('punc-count').innerText = totalPuncMarks(paragraphs);
         // document.getElementById('word-freq').innerText = wordFrequency(paragraphs);
 
       } else if (lang === '1') { // VN

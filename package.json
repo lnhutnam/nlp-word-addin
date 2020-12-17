@@ -27,10 +27,11 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "@nlpjs/lang-en": "^4.17.0",
     "keyword-extractor": "0.0.19",
     "lodash": "^4.17.20",
-    "natural": "^2.1.5",
-    "syllable": "^4.1.0"
+    "syllable": "^4.1.0",
+    "wink-nlp-utils": "^2.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",

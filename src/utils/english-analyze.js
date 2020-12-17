@@ -1,4 +1,4 @@
-const natural = require('natural');
+var nlp = require( 'wink-nlp-utils' );
 const keyword_extractor = require("keyword-extractor");
 const syllable = require('syllable');
 const commonWord = require('./english-common-word');
@@ -18,33 +18,31 @@ export function wordFreq(string) {
 
 // Text Statistics
 export function totalWordCount(paragraphs) {
-    let tokenizer = new natural.WordTokenizer();
     let count = 0;
     for (const paragraph of paragraphs) {
-        count += tokenizer.tokenize(paragraph.text).length;
-    }
-    return count;
-}
-
-export function totalWordCountWithPuncMarks(paragraphs) {
-    let tokenizer = new natural.WordPunctTokenizer();
-    let count = 0;
-    for (const paragraph of paragraphs) {
-        count += tokenizer.tokenize(paragraph.text).length;
+        count += nlp.string.tokenize0(paragraph.text).length;
     }
     return count;
 }
 
 export function totalPuncMarks(paragraphs) {
-    return totalWordCountWithPuncMarks(paragraphs) - totalWordCount(paragraphs);
+    let count = 0;
+    for (const paragraph of paragraphs) {
+        let words = nlp.string.tokenize(paragraph.text);
+        for (let word of words){
+            if (word.tag === 'punctuation'){
+                count = count + 1;
+            }
+        }
+    }
+    return count;
 }
 
 export function totalWordCountWithoutCommon(paragraphs) {
-    let tokenizer = new natural.WordTokenizer();
     let count = 0;
     for (const paragraph of paragraphs) {
-        tokenizer.tokenize(paragraph.text).forEach(element => {
-            if (!commonWord.engCommonWord.includes(element)) {
+        nlp.string.tokenize0(paragraph.text).forEach(element => {
+            if (!commonWord.engCommonWord.includes(element.value)) {
                 count += 1;
             }
         });
@@ -53,23 +51,21 @@ export function totalWordCountWithoutCommon(paragraphs) {
 }
 
 export function differentWord(paragraphs) {
-    let tokenizer = new natural.WordTokenizer();
     var paraSet = new Set();
     for (const paragraph of paragraphs) {
-        tokenizer.tokenize(paragraph.text).forEach(element => {
-            paraSet.add(element);
+        nlp.string.tokenize0(paragraph.text).forEach(element => {
+            paraSet.add(element.value);
         });
     }
     return paraSet.size;
 }
 
 export function differentWordCommon(paragraphs) {
-    let tokenizer = new natural.WordTokenizer();
     var paraSet = new Set();
     for (const paragraph of paragraphs) {
-        tokenizer.tokenize(paragraph.text).forEach(element => {
-            if (!commonWord.engCommonWord.includes(element)) {
-                paraSet.add(element);
+        nlp.string.tokenize0(paragraph.text).forEach(element => {
+            if (!commonWord.engCommonWord.includes(element.value)) {
+                paraSet.add(element.value);
             }
         });
     }
@@ -81,14 +77,13 @@ export function numberofParagraphs(paragraphs) {
     for (const paragraph of paragraphs) {
         count += paragraph.text.split('\n').length;
     }
-    return count - 1;
+    return count;
 }
 
 export function numberofSentence(paragraphs) {
-    var tokenizer = new natural.SentenceTokenizer();
     let count = 0;
     for (const paragraph of paragraphs) {
-        count += tokenizer.tokenize(paragraph.text).length;
+        count += nlp.string.sentences(paragraph.text).length;
     }
     return count;
 }
@@ -125,10 +120,9 @@ export function charactersPerWord(paragraphs) {
 }
 
 export function syllables(paragraphs) {
-    let tokenizer = new natural.WordTokenizer();
     let count = 0;
     for (const paragraph of paragraphs) {
-        tokenizer.tokenize(paragraph.text).forEach(element => {
+        nlp.string.tokenize0(paragraph.text).forEach(element => {
             count += syllable(element);
         });
     }

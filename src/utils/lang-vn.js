@@ -55,7 +55,6 @@ const rgx_spacedash = /[-\s+]/g
 // words per sentence
 const MAX_WORD_LEN = 5;
 export function getWords(sentToken) {
-  console.log(sentToken)
   let words = [];
   let len = sentToken.length;
   let tokens = [...sentToken];
@@ -67,7 +66,6 @@ export function getWords(sentToken) {
       if (!tokenUsed(flags, i, i + wLen)) {
         const curTokens = tokens.slice(i, i + wLen);
         const curW = curTokens.join(' ').toLowerCase().trim();
-        console.log(curW, rgx_specials.test(curW), wLen)
         if (VNDICT.indexOf(curW) !== -1 || (wLen === 1 && !rgx_specials.test(curW[0]))) {
           words.push(curW);
           flagTokens(flags, i, i + wLen);
@@ -77,7 +75,6 @@ export function getWords(sentToken) {
     }
     wLen--;
   }
-  console.log(words);
   return words;
 }
 

@@ -7,27 +7,27 @@ function analyze(paragraphs) {
   for (const token of sentTokens) {
     words.push(...getWords(token));
   }
-  const { charsCount, syllablesCount } = wordAnalyze(words);
+  const { lettersCount, syllablesCount } = wordAnalyze(words);
   const wordsCount = words.length;
   const sentsCount = sentTokens.length;
 
-  return {charsCount, syllablesCount, wordsCount, sentsCount};
+  return {lettersCount, syllablesCount, wordsCount, sentsCount};
 }
 
 self.addEventListener('message', e => {
   const { paragraphs, text } = JSON.parse(e.data);
-  let resCharsCount = 0;
+  let resLettersCount = 0;
   let resSyllablesCount = 0;
   let resWordsCount = 0;
   let resSentsCount = 0;
   let resPuncMarksCount = countPuncMarks(text);
   let resParsCount = paragraphs.length;
   for (let i = 0; i < resParsCount; i += 10) {
-    const {charsCount, syllablesCount, wordsCount, sentsCount} = analyze(paragraphs.slice(i, i + 10));
-    resCharsCount += charsCount;
+    const {lettersCount, syllablesCount, wordsCount, sentsCount} = analyze(paragraphs.slice(i, i + 10));
+    resLettersCount += lettersCount;
     resSyllablesCount += syllablesCount;
     resWordsCount += wordsCount;
     resSentsCount += sentsCount;
-    self.postMessage({ resCharsCount, resSyllablesCount, resPuncMarksCount, resWordsCount, resSentsCount, resParsCount }); // send back data
+    self.postMessage({ resLettersCount, resSyllablesCount, resPuncMarksCount, resWordsCount, resSentsCount, resParsCount }); // send back data
   }
 });

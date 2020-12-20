@@ -82,13 +82,13 @@ export function getWords(sentToken) {
 }
 
 export function wordAnalyze(words) {
-  let charsCount = 0;
+  let lettersCount = 0;
   let syllablesCount = 0;
   for (const w of words) {
     const matches = w.match(rgx_spacedash);
     syllablesCount += matches ? matches.length + 1 : 1;
     const t_w = w.replace(rgx_space, '');
-    charsCount += t_w.length;
+    lettersCount += t_w.length;
   }
-  return { charsCount, syllablesCount };
+  return { lettersCount, syllablesCount };
 }

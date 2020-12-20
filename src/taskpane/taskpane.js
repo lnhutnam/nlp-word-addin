@@ -30,15 +30,15 @@ function switchLang(lang) {
 function runWorker(data, dom) {
   worker.postMessage(JSON.stringify(data));
   worker.onmessage = e => {
-    const { resCharsCount, resSyllablesCount, resPuncMarksCount, resWordsCount, resSentsCount, resParsCount } = e.data;
-    dom.getElementById('0').innerText = resCharsCount;
+    const { resLettersCount, resSyllablesCount, resPuncMarksCount, resWordsCount, resSentsCount, resParsCount } = e.data;
+    dom.getElementById('0').innerText = resLettersCount;
     dom.getElementById('1').innerText = resWordsCount;
     dom.getElementById('2').innerText = resSentsCount;
     dom.getElementById('3').innerText = resParsCount;
     dom.getElementById('4').innerText = resPuncMarksCount;
     dom.getElementById('5').innerText = resSentsCount / resParsCount;
     dom.getElementById('6').innerText = resWordsCount / resSentsCount;
-    dom.getElementById('7').innerText = resCharsCount / resWordsCount;
+    dom.getElementById('7').innerText = resLettersCount / resWordsCount;
     dom.getElementById('8').innerText = resSyllablesCount;
     dom.getElementById('9').innerText = resSyllablesCount / resWordsCount;
   };
@@ -70,8 +70,6 @@ export async function run() {
         document.getElementById('syllables').innerText = syllables(paragraphs);
         document.getElementById('syllables-per-word').innerText = syllablesPerWord(paragraphs);
         document.getElementById('punc-count').innerText = totalPuncMarks(paragraphs);
-        // document.getElementById('word-freq').innerText = wordFrequency(paragraphs);
-
       } else if (lang === '1') { // VN
         switchLang('vn');
         runWorker({paragraphs, text}, document);

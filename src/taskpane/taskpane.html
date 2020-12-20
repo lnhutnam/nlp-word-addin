@@ -3,75 +3,162 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contoso Task Pane Add-in</title>
 
-    <!-- Office JavaScript API -->
-    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contoso Task Pane Add-in</title>
 
-    <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
-    <link
-      rel="stylesheet"
-      href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"
-    />
+  <!-- Office JavaScript API -->
+  <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 
-    <!-- Template styles -->
-    <link href="taskpane.css" rel="stylesheet" type="text/css" />
-  </head>
+  <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+  <link rel="stylesheet"
+    href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css" />
 
-  <body class="ms-font-m ms-welcome ms-Fabric">
-    <section id="sideload-msg" class="ms-welcome__main">
-      <h2 class="ms-font-xl">Please sideload your add-in to see app body.</h2>
-    </section>
-    <main id="app-body" class="ms-welcome__main" style="display: none;">
-      <div>
-        <div class="custom-select" style="width:200px;">
-          <select id='lang-select'>
-            <option value="0">English</option>
-            <option value="1">Vietnamese</option>
-          </select>
-        </div>
+  <!-- Template styles -->
+  <link href="taskpane.css" rel="stylesheet" type="text/css" />
 
-        <button role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">Analyze</button>
+</head>
+
+<body class="ms-font-m ms-welcome ms-Fabric">
+  <section id="sideload-msg" class="ms-welcome__main">
+    <h2 class="ms-font-xl">Please sideload your add-in to see app body.</h2>
+  </section>
+  <main id="app-body" class="ms-welcome__main" style="display: none;">
+
+    <h2 class="ms-font-xl">Introduction to Natural Language Processing Project Final</h2>
+
+    <div>
+      <div class="custom-select" style="width:200px;">
+        <select id='lang-select'>
+          <option value="0">English</option>
+          <option value="1">Vietnamese</option>
+        </select>
       </div>
-      </br>
 
-      <table id='en' class="tftable" border="1" hidden>
-      <tr><th>Statistics</th><th>Lang: EN</th></tr>
-      <tr><td>Total Word Count</td><td id="total-word-count"></td></tr>
-      <tr><td>Word Count (Excluding Common Words)</td><td id="word-count-common"></td></tr>
-      <tr><td>Number of Different Words</td><td id="different-word"></td></tr>
-      <tr><td>Different Words (Excluding Common Words)</td><td id="different-word-common"></td></tr>
-      <tr><td>Number of Paragraphs</td><td id="number-of-paragraphs"></td></tr>
-      <tr><td>Number of Sentences</td><td id="number-of-sentence"></td></tr>
-      <tr><td>Sentences per Paragraphs</td><td id="sentence-per-paragraph"></td></tr>
-      <tr><td>Words per Sentence</td><td id="word-persentence"></td></tr>
-      <tr><td>Number of Letters (all)</td><td id="number-of-characters-all"></td></tr>
-      <tr><td>Number of Letters (a-z)</td><td id="number-of-characters"></td></tr>
-      <tr><td>Characters per Word</td><td id="characters-per-word"></td></tr>
-      <tr><td>Syllables</td><td id="syllables"></td></tr>
-      <tr><td>Syllables per Word</td><td id="syllables-per-word"></td></tr>
-      <tr><td>Punctuations</td><td id="punc-count"></td></tr>
+      <button role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">Analyze</button>
+    </div>
+    </br>
+
+    <table id='en' class="tftable" border="1" hidden>
+      <tr>
+        <th>Statistics</th>
+        <th>Lang: EN</th>
+      </tr>
+      <tr>
+        <tr>
+          <td>Chars (all)</td>
+          <td id="number-of-characters-all"></td>
+        </tr>
+        <tr>
+          <td>Letters (a-z)</td>
+          <td id="number-of-characters"></td>
+        </tr>
+        <td>Words</td>
+        <td id="total-word-count"></td>
+        </tr>
+        <tr>
+          <td>Sentences</td>
+          <td id="number-of-sentence"></td>
+        </tr>
+        <tr>
+          <td>Paragraphs</td>
+          <td id="number-of-paragraphs"></td>
+        </tr>
+        <tr>
+          <td>Punctuations</td>
+          <td id="punc-count"></td>
+        </tr>
+  
+        <tr>
+          <td>Sentence per paragraph</td>
+          <td id="sentence-per-paragraph"></td>
+        </tr>
+
+        <tr>
+          <td>Words per Sentence</td>
+          <td id="word-persentence"></td>
+        </tr>
+        
+        <tr>
+          <td>Letters per Word</td>
+          <td id="characters-per-word"></td>
+        </tr>
+        <tr>
+          <td>Syllables</td>
+          <td id="syllables"></td>
+        </tr>
+        <tr>
+          <td>Syllables per word</td>
+          <td id="syllables-per-word"></td>
+        </tr>
+        <tr>
+          <td>Word Count (Excluding Common Words)</td>
+          <td id="word-count-common"></td>
+        </tr>
+        <tr>
+          <td>Number of Different Words</td>
+          <td id="different-word"></td>
+        </tr>
+        <tr>
+          <td>Different Words (Excluding Common Words)</td>
+          <td id="different-word-common"></td>
+        </tr>
       </table>
-
+  
       <table id='vn' class="tftable" border="1" hidden>
-      <tr><th>Statistics</th><th>Lang: VN</th></tr>
-      <tr><td>Letters</td><td id='0'></td></tr>
-      <tr><td>Chars</td><td id='1'></td></tr>
-      <tr><td>Words</td><td id='2'></td></tr>
-      <tr><td>Sentences</td><td id='3'></td></tr>
-      <tr><td>Paragraphs</td><td id='4'></td></tr>
-      <tr><td>Punctuations</td><td id='5'></td></tr>
-      <tr><td>Sentence per paragraph</td><td id='6'></td></tr>
-      <tr><td>Words per sentence</td><td id='7'></td></tr>
-      <tr><td>Letters per word</td><td id='8'></td></tr>
-      <tr><td>Syllables</td><td id='9'></td></tr>
-      <tr><td>Syllables per word</td><td id='10'></td></tr>
-      </table>
-      
-    </main>
-  </body>
+        <tr>
+          <th>Statistics</th>
+          <th>Lang: VN</th>
+        </tr>
+        <tr>
+          <td>Letters</td>
+          <td id='0'></td>
+        </tr>
+        <tr>
+          <td>Chars</td>
+          <td id='1'></td>
+        </tr>
+        <tr>
+          <td>Words</td>
+          <td id='2'></td>
+        </tr>
+        <tr>
+          <td>Sentences</td>
+          <td id='3'></td>
+        </tr>
+        <tr>
+          <td>Paragraphs</td>
+          <td id='4'></td>
+        </tr>
+        <tr>
+          <td>Punctuations</td>
+          <td id='5'></td>
+        </tr>
+        <tr>
+          <td>Sentence per paragraph</td>
+          <td id='6'></td>
+        </tr>
+        <tr>
+          <td>Words per sentence</td>
+          <td id='7'></td>
+        </tr>
+        <tr>
+          <td>Letters per word</td>
+          <td id='8'></td>
+        </tr>
+        <tr>
+          <td>Syllables</td>
+          <td id='9'></td>
+        </tr>
+        <tr>
+          <td>Syllables per word</td>
+          <td id='10'></td>
+        </tr>
+    </table>
+  </main>
+</body>
+
 </html>

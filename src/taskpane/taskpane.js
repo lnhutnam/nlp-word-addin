@@ -30,18 +30,19 @@ function switchLang(lang) {
 function runWorker(data, dom) {
   worker.postMessage(JSON.stringify(data));
   worker.onmessage = e => {
-    const { resLettersCount, resCharsCount, resSyllablesCount, resPuncMarksCount, resWordsCount, resSentsCount, resParsCount } = e.data;
+    const { resLettersCount, resCharsCount, resSyllablesCount, resPuncMarksCount, resWordsCount, resUniqueWordsCount, resSentsCount, resParsCount } = e.data;
     dom.getElementById('0').innerText = resLettersCount;
     dom.getElementById('1').innerText = resCharsCount;
     dom.getElementById('2').innerText = resWordsCount;
-    dom.getElementById('3').innerText = resSentsCount;
-    dom.getElementById('4').innerText = resParsCount;
-    dom.getElementById('5').innerText = resPuncMarksCount;
-    dom.getElementById('6').innerText = resSentsCount / resParsCount;
-    dom.getElementById('7').innerText = resWordsCount / resSentsCount;
-    dom.getElementById('8').innerText = resLettersCount / resWordsCount;
-    dom.getElementById('9').innerText = resSyllablesCount;
-    dom.getElementById('10').innerText = resSyllablesCount / resWordsCount;
+    dom.getElementById('3').innerText = resUniqueWordsCount;
+    dom.getElementById('4').innerText = resSentsCount;
+    dom.getElementById('5').innerText = resParsCount;
+    dom.getElementById('6').innerText = resPuncMarksCount;
+    dom.getElementById('7').innerText = resSentsCount / resParsCount;
+    dom.getElementById('8').innerText = resWordsCount / resSentsCount;
+    dom.getElementById('9').innerText = resLettersCount / resWordsCount;
+    dom.getElementById('10').innerText = resSyllablesCount;
+    dom.getElementById('11').innerText = resSyllablesCount / resWordsCount;
   };
 }
 

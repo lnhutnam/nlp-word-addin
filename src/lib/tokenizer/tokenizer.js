@@ -1,5 +1,4 @@
 'use strict';
-// const _ = require('lodash');
 import _ from 'lodash';
 
 const digit = "\\d+([\\.,_]\\d+)+"
@@ -24,7 +23,6 @@ const patterns = _.concat(abbreviations, specials, [web, email], datetime, [digi
 
 export default class Tokenizer {
     constructor() {
-        // private members
         this._pattern = `(${ patterns.join('|') })`;
     }
 
@@ -33,26 +31,5 @@ export default class Tokenizer {
         // remove multiple spaces
         text = text.replace(/\s+/, ' ');
         return text.match(regex) || [];
-    }
-
-    trim(arr) {
-        while (!arr[arr.length - 1])
-            arr.pop();
-
-        while (!arr[0])
-            arr.shift();
-
-        return arr;
-    }
-
-    attach() {
-        let self = this;
-        String.prototype.tokenize = function () {
-            return self.tokenize(this);
-        }
-    }
-
-    stokenize(text, sep) {
-        return this.tokenize(text).join(sep || ' ');
     }
 }

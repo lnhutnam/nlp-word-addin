@@ -1,4 +1,4 @@
-import { preprocess, getSentences, countPuncMarks, getWords, wordAnalyze } from '../utils/lang-vn';
+import { preprocess, getSentences, countPuncMarks, getWords, getUniqueWords, wordAnalyze } from '../utils/lang-vn';
 
 function analyze(paragraphs) {
   const parTokens = preprocess(paragraphs);
@@ -15,7 +15,7 @@ function analyze(paragraphs) {
     charsCount += paragraph.text.length;
   }
 
-  return {lettersCount, charsCount, syllablesCount, wordsCount, sentsCount};
+  return {lettersCount, charsCount, syllablesCount, wordsCount, sentsCount, words};
 }
 
 self.addEventListener('message', e => {
@@ -27,13 +27,17 @@ self.addEventListener('message', e => {
   let resSentsCount = 0;
   let resPuncMarksCount = countPuncMarks(text);
   let resParsCount = paragraphs.length;
+  let resUniqueWordsCount = 0;
   for (let i = 0; i < resParsCount; i += 10) {
-    const {lettersCount, charsCount, syllablesCount, wordsCount, sentsCount} = analyze(paragraphs.slice(i, i + 10));
+    const {lettersCount, charsCount, syllablesCount, wordsCount, sentsCount, words} = analyze(paragraphs.slice(i, i + 10));
     resLettersCount += lettersCount;
     resCharsCount += charsCount;
     resSyllablesCount += syllablesCount;
     resWordsCount += wordsCount;
     resSentsCount += sentsCount;
-    self.postMessage({ resLettersCount, resCharsCount, resSyllablesCount, resPuncMarksCount, resWordsCount, resSentsCount, resParsCount }); // send back data
+    if (i + 10 >= resParsCount) {
+      resUniqueWordsCount += getUniqueWords(words).length;
+    }
+    self.postMessage({ resLettersCount, resCharsCount, resSyllablesCount, resPuncMarksCount, resWordsCount, resUniqueWordsCount, resSentsCount, resParsCount }); // send back data
   }
 });

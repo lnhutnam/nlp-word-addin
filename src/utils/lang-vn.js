@@ -89,3 +89,7 @@ export function wordAnalyze(words) {
   }
   return { lettersCount, syllablesCount };
 }
+
+export function getUniqueWords(words) {
+  return [...new Set(words)];
+}

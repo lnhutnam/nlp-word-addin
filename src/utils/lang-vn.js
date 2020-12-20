@@ -36,10 +36,6 @@ export function countPuncMarks(bodyText) {
   return match ? match.length : 0;
 }
 
-// avg sents / para
-// avg words / sent
-// avg chars / word
-
 function flagTokens(flags, start, end) {
   for (let i = start; i < end; i++) {
     flags[i] = 1;
@@ -70,8 +66,7 @@ export function getWords(sentToken) {
       if (!tokenUsed(flags, i, i + wLen)) {
         const curTokens = tokens.slice(i, i + wLen);
         const curW = curTokens.join(' ').toLowerCase().trim();
-
-        if (VNDICT.indexOf(curW) !== -1 || (wLen === 1 && !rgx_specials.test(curW))) {
+        if (VNDICT.indexOf(curW) !== -1 || (wLen === 1 && !rgx_specials.test(curW[0]))) {
           words.push(curW);
           flagTokens(flags, i, i + wLen);
         }
@@ -84,13 +79,13 @@ export function getWords(sentToken) {
 }
 
 export function wordAnalyze(words) {
-  let charsCount = 0;
+  let lettersCount = 0;
   let syllablesCount = 0;
   for (const w of words) {
     const matches = w.match(rgx_spacedash);
     syllablesCount += matches ? matches.length + 1 : 1;
     const t_w = w.replace(rgx_space, '');
-    charsCount += t_w.length;
+    lettersCount += t_w.length;
   }
-  return { charsCount, syllablesCount };
+  return { lettersCount, syllablesCount };
 }

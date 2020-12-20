@@ -1,6 +1,6 @@
 import { loadDict } from '../lib/dictionary/loadDict';
 
-const VNDICT = loadDict();
+export const VNDICT = loadDict();
 
 import Tokenizer from '../lib/tokenizer/tokenizer';
 const tokenizer = new Tokenizer();

@@ -8,7 +8,7 @@ import { totalWordCount, differentWord, numberofParagraphs,
   numberofSentence, wordPerSentence, longWords, 
   wordFrequency, numberOfCharacterAll, numberOfCharacter, 
   charactersPerWord, keyWord, syllables,
-  syllablesPerWord, differentWordCommon, totalWordCountWithoutCommon, totalPuncMarks} from '../utils/english-analyze';
+  syllablesPerWord, differentWordCommon, totalWordCountWithoutCommon, totalPuncMarks, sentencePerParagraph} from '../utils/english-analyze';
 import Worker from 'worker-loader!../worker/worker';
 
 /* global document, Office, Word */
@@ -63,6 +63,7 @@ export async function run() {
         document.getElementById('different-word-common').innerText = differentWordCommon(paragraphs);
         document.getElementById('number-of-paragraphs').innerText = numberofParagraphs(paragraphs);
         document.getElementById('number-of-sentence').innerText = numberofSentence(paragraphs);
+        document.getElementById('sentence-per-paragraph').innerText = sentencePerParagraph(paragraphs);
         document.getElementById('word-persentence').innerText = wordPerSentence(paragraphs);
         document.getElementById('number-of-characters-all').innerText = numberOfCharacterAll(paragraphs);
         document.getElementById('number-of-characters').innerText = numberOfCharacter(paragraphs);

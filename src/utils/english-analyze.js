@@ -3,6 +3,8 @@ const keyword_extractor = require("keyword-extractor");
 const syllable = require('syllable');
 const commonWord = require('./english-common-word');
 
+const langvn = require('./lang-vn');
+
 export function wordFreq(string) {
     var words = string.replace(/[.]/g, '').split(/\s/);
     var freqMap = {};
@@ -20,7 +22,13 @@ export function wordFreq(string) {
 export function totalWordCount(paragraphs) {
     let count = 0;
     for (const paragraph of paragraphs) {
-        count += nlp.string.tokenize0(paragraph.text).length;
+        nlp.string.tokenize(paragraph.text, true).forEach(element => {
+            if (element.tag != 'word'){
+                count += 0;
+            }
+            else 
+                count += 1;
+        }); 
     }
     return count;
 }
@@ -40,11 +48,13 @@ export function totalPuncMarks(paragraphs) {
 export function totalWordCountWithoutCommon(paragraphs) {
     let count = 0;
     for (const paragraph of paragraphs) {
-        nlp.string.tokenize0(paragraph.text).forEach(element => {
-            if (!commonWord.engCommonWord.includes(element.value)) {
-                count += 1;
-            }
-        });
+        nlp.string.tokenize(paragraph.text, true).forEach(element => {
+                if (element.tag === 'word') {
+                    if (!commonWord.engCommonWord.includes(element.value)) {
+                        count += 1;
+                    }
+                }
+            });
     }
     return count;
 }
@@ -52,8 +62,14 @@ export function totalWordCountWithoutCommon(paragraphs) {
 export function differentWord(paragraphs) {
     var paraSet = new Set();
     for (const paragraph of paragraphs) {
-        nlp.string.tokenize0(paragraph.text).forEach(element => {
-            paraSet.add(element);
+        nlp.string.tokenize(paragraph.text, true).forEach(element => {
+            if (element.tag === 'word'){
+                if (langvn.VNDICT.indexOf(element.value) !== -1) {
+                    paraSet.add(element.value);
+                } else {
+                    paraSet.add(element.value);
+                }   
+            }
         });
     }
     return paraSet.size;
@@ -62,9 +78,11 @@ export function differentWord(paragraphs) {
 export function differentWordCommon(paragraphs) {
     var paraSet = new Set();
     for (const paragraph of paragraphs) {
-        nlp.string.tokenize0(paragraph.text).forEach(element => {
-            if (!commonWord.engCommonWord.includes(element)) {
-                paraSet.add(element);
+        nlp.string.tokenize(paragraph.text, true).forEach(element => {
+            if (element.tag === 'word'){
+                if (!commonWord.engCommonWord.includes(element.value)) {
+                    paraSet.add(element);
+                }
             }
         });
     }
@@ -80,11 +98,16 @@ export function numberofParagraphs(paragraphs) {
 }
 
 export function numberofSentence(paragraphs) {
-    let count = 0;
+    var count = 0;
     for (const paragraph of paragraphs) {
-        count += nlp.string.sentences(paragraph.text).length;
+        let sententcesArray = nlp.string.sentences(paragraph.text);
+        count += sententcesArray.length;
     }
     return count;
+}
+
+export function sentencePerParagraph(paragraphs){
+    return numberofSentence(paragraphs) / numberofParagraphs(paragraphs);
 }
 
 export function wordPerSentence(paragraphs) {
@@ -121,8 +144,10 @@ export function charactersPerWord(paragraphs) {
 export function syllables(paragraphs) {
     let count = 0;
     for (const paragraph of paragraphs) {
-        nlp.string.tokenize0(paragraph.text).forEach(element => {
-            count += syllable(element);
+        nlp.string.tokenize(paragraph.text, true).forEach(element => {
+            if (langvn.VNDICT.indexOf(element.value) !== -1){
+                count += syllable(element.value);
+            }
         });
     }
     return count;

@@ -145,7 +145,7 @@ export function syllables(paragraphs) {
     let count = 0;
     for (const paragraph of paragraphs) {
         nlp.string.tokenize(paragraph.text, true).forEach(element => {
-            if (langvn.VNDICT.indexOf(element.value) !== -1){
+            if (langvn.VNDICT.indexOf(element.value) === -1){
                 count += syllable(element.value);
             }
         });

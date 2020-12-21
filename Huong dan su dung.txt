@@ -1,0 +1,5 @@
+Yêu cầu: NodeJS latest verion for good.
+
+- Giải nén file đồ án (nếu có bị nén)
+- Mở terminal/ cmd/ powershell, run command tại thư mục hiện hành đồ án: npm install 
+- Chạy đồ án: npm run start

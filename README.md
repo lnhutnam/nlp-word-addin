@@ -1,13 +1,13 @@
-# Trường Đại học Khoa học Tự nhiên - Ho Chi Minh Univerisity of Science
-# Khoa Công nghệ Thông Tin - Faculty of Information Technology
-# Bộ môn Công nghệ Tri thức - Department of Knowledge Technolgy
-# Nhập môn xử lý ngôn ngữ tự nhiên - Introduction to Natural Language Processing
+### Trường Đại học Khoa học Tự nhiên
+### Khoa Công nghệ Thông Tin
+### Bộ môn Công nghệ Tri thức
+### Nhập môn xử lý ngôn ngữ tự nhiên
 
-## Đồ án lý thuyết cuối kỳ - Final Project
+Đồ án lý thuyết cuối kỳ
 
-### Đề tài: Xây dựng add-in trên word để tách từ và thống kê văn bản (số từ, tiếng, dấu câu, từ khóa, ...)
+Đề tài: Xây dựng add-in trên word để tách từ và thống kê văn bản (số từ, tiếng, dấu câu, từ khóa, ...)
 
-### Nhóm
+Nhóm
 
 1. Đoàn Đăng Khoa (Dang-Khoa Doan) - 18120185
 2. Lê Nhựt Nam (Nhut-Nam Le) - 18120061
